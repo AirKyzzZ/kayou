@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public Button slingshotButton;    // Slingshot button
     public Text cannonMultiplierText; // Displays the cannon multiplier
     public Text slingshotMultiplierText; // Displays the slingshot multiplier
+    public Text cannonCostText;       // Displays the cost of the cannon
+    public Text slingshotCostText;    // Displays the cost of the slingshot
 
     // Projectile Animation
     public Transform projectileParent; // Target position for the projectiles
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
         UpdateScoreUI();
         UpdateUpgradeUI();
         UpdateMultipliersUI();
+        UpdatePurchaseButtons();
         clickButton.onClick.AddListener(OnClick);       // Action for clicking
         upgradeButton.onClick.AddListener(OnUpgrade);   // Action for upgrading
         cannonButton.onClick.AddListener(OnCannonButtonClick); // Action for cannon button
@@ -86,7 +89,7 @@ public class GameManager : MonoBehaviour
         pointsPerClick++;
 
         // Increase the upgrade cost more significantly
-        upgradeCost = Mathf.RoundToInt(upgradeCost * 2f);
+        upgradeCost = Mathf.RoundToInt(upgradeCost * 1.75f);
 
         // Update the UI
         UpdateScoreUI();
@@ -123,6 +126,10 @@ public class GameManager : MonoBehaviour
         // Update the interactivity of the purchase buttons based on the current score
         cannonButton.interactable = score >= cannonCost;
         slingshotButton.interactable = score >= slingshotCost;
+
+        // Update the cost display for the cannon and slingshot
+        cannonCostText.text = $"Cannon: {cannonCost} points";
+        slingshotCostText.text = $"Slingshot: {slingshotCost} points";
     }
 
     void SpawnProjectile()
@@ -162,6 +169,10 @@ public class GameManager : MonoBehaviour
             UpdateScoreUI();
             UpdateMultipliersUI();
 
+            // Increase the cannon cost by 1.75 times
+            cannonCost = Mathf.RoundToInt(cannonCost * 1.75f);
+            UpdatePurchaseButtons();
+
             // Start the coroutine to add score over time
             StartCoroutine(AddScoreOverTime(5, 10 * cannonMultiplier));
             Debug.Log($"Cannon upgraded! New multiplier: {cannonMultiplier}");
@@ -180,6 +191,10 @@ public class GameManager : MonoBehaviour
             slingshotMultiplier++;
             UpdateScoreUI();
             UpdateMultipliersUI();
+
+            // Increase the slingshot cost by 1.75 times
+            slingshotCost = Mathf.RoundToInt(slingshotCost * 1.75f);
+            UpdatePurchaseButtons();
 
             // Start the coroutine to add score over time
             StartCoroutine(AddScoreOverTime(3, 5 * slingshotMultiplier));
