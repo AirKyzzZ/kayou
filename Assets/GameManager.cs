@@ -154,7 +154,8 @@ public class GameManager : MonoBehaviour
             UpdateScoreUI();
             UpdateMultipliersUI();
 
-            // Instead of instantiating a new cannonPrefab, just update the multiplier
+            // Start the coroutine to add score over time
+            StartCoroutine(AddScoreOverTime(5, 10 * cannonMultiplier));
             Debug.Log($"Cannon upgraded! New multiplier: {cannonMultiplier}");
         }
         else
@@ -172,7 +173,8 @@ public class GameManager : MonoBehaviour
             UpdateScoreUI();
             UpdateMultipliersUI();
 
-            // Instead of instantiating a new slingshotPrefab, just update the multiplier
+            // Start the coroutine to add score over time
+            StartCoroutine(AddScoreOverTime(3, 5 * slingshotMultiplier));
             Debug.Log($"Slingshot upgraded! New multiplier: {slingshotMultiplier}");
         }
         else
@@ -181,9 +183,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator AddScoreOverTime(float interval, int points, GameObject item)
+    IEnumerator AddScoreOverTime(float interval, int points)
     {
-        while (item != null)
+        while (true)
         {
             yield return new WaitForSeconds(interval);
             score += points;
