@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public Text upgradeCostText;      // Displays the cost of the upgrade
     public Button cannonButton;       // Cannon button
     public Button slingshotButton;    // Slingshot button
+    public Text cannonMultiplierText; // Displays the cannon multiplier
+    public Text slingshotMultiplierText; // Displays the slingshot multiplier
 
     // Projectile Animation
     public Transform projectileParent; // Target position for the projectiles
@@ -27,6 +29,8 @@ public class GameManager : MonoBehaviour
     private int score = 0;            // Current score
     private int pointsPerClick = 1;   // Points gained per click
     private int upgradeCost = 10;     // Initial upgrade cost
+    private int cannonMultiplier = 1; // Cannon multiplier
+    private int slingshotMultiplier = 1; // Slingshot multiplier
 
     void Start()
     {
@@ -37,6 +41,7 @@ public class GameManager : MonoBehaviour
 
         UpdateScoreUI();
         UpdateUpgradeUI();
+        UpdateMultipliersUI();
         clickButton.onClick.AddListener(OnClick);       // Action for clicking
         upgradeButton.onClick.AddListener(OnUpgrade);   // Action for upgrading
         cannonButton.onClick.AddListener(OnCannonButtonClick); // Action for cannon button
@@ -105,6 +110,13 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Upgrade button state updated. Interactable: {upgradeButton.interactable}");
     }
 
+    void UpdateMultipliersUI()
+    {
+        // Update the multipliers display
+        cannonMultiplierText.text = $"Cannon x{cannonMultiplier}";
+        slingshotMultiplierText.text = $"Slingshot x{slingshotMultiplier}";
+    }
+
     void SpawnProjectile()
     {
         // Create a projectile at the click button's position
@@ -138,9 +150,11 @@ public class GameManager : MonoBehaviour
         if (score >= cannonCost)
         {
             score -= cannonCost;
+            cannonMultiplier++;
             UpdateScoreUI();
+            UpdateMultipliersUI();
             GameObject cannon = Instantiate(cannonPrefab, projectileParent);
-            StartCoroutine(AddScoreOverTime(5, 10, cannon));
+            StartCoroutine(AddScoreOverTime(5, 10 * cannonMultiplier, cannon));
         }
         else
         {
@@ -153,9 +167,11 @@ public class GameManager : MonoBehaviour
         if (score >= slingshotCost)
         {
             score -= slingshotCost;
+            slingshotMultiplier++;
             UpdateScoreUI();
+            UpdateMultipliersUI();
             GameObject slingshot = Instantiate(slingshotPrefab, projectileParent);
-            StartCoroutine(AddScoreOverTime(3, 5, slingshot));
+            StartCoroutine(AddScoreOverTime(3, 5 * slingshotMultiplier, slingshot));
         }
         else
         {
