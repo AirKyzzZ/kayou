@@ -153,8 +153,9 @@ public class GameManager : MonoBehaviour
             cannonMultiplier++;
             UpdateScoreUI();
             UpdateMultipliersUI();
-            GameObject cannon = Instantiate(cannonPrefab, projectileParent);
-            StartCoroutine(AddScoreOverTime(5, 10 * cannonMultiplier, cannon));
+
+            // Instead of instantiating a new cannonPrefab, just update the multiplier
+            Debug.Log($"Cannon upgraded! New multiplier: {cannonMultiplier}");
         }
         else
         {
@@ -170,8 +171,9 @@ public class GameManager : MonoBehaviour
             slingshotMultiplier++;
             UpdateScoreUI();
             UpdateMultipliersUI();
-            GameObject slingshot = Instantiate(slingshotPrefab, projectileParent);
-            StartCoroutine(AddScoreOverTime(3, 5 * slingshotMultiplier, slingshot));
+
+            // Instead of instantiating a new slingshotPrefab, just update the multiplier
+            Debug.Log($"Slingshot upgraded! New multiplier: {slingshotMultiplier}");
         }
         else
         {
