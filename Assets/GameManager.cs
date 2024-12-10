@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour
     {
         // Update the score display
         scoreText.text = $"Score: {score}";
+        UpdatePurchaseButtons();
     }
 
     void UpdateUpgradeUI()
@@ -115,6 +116,13 @@ public class GameManager : MonoBehaviour
         // Update the multipliers display
         cannonMultiplierText.text = $"x{cannonMultiplier}";
         slingshotMultiplierText.text = $"x{slingshotMultiplier}";
+    }
+
+    void UpdatePurchaseButtons()
+    {
+        // Update the interactivity of the purchase buttons based on the current score
+        cannonButton.interactable = score >= cannonCost;
+        slingshotButton.interactable = score >= slingshotCost;
     }
 
     void SpawnProjectile()
