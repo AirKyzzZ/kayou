@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour
     private int score = 0;            // Current score
     private int pointsPerClick = 1;   // Points gained per click
     private int upgradeCost = 10;     // Initial upgrade cost
-    private int cannonMultiplier = 1; // Cannon multiplier
-    private int slingshotMultiplier = 1; // Slingshot multiplier
+    private int cannonMultiplier = 0; // Cannon multiplier
+    private int slingshotMultiplier = 0; // Slingshot multiplier
 
     void Start()
     {
@@ -113,8 +113,8 @@ public class GameManager : MonoBehaviour
     void UpdateMultipliersUI()
     {
         // Update the multipliers display
-        cannonMultiplierText.text = $"Cannon x{cannonMultiplier}";
-        slingshotMultiplierText.text = $"Slingshot x{slingshotMultiplier}";
+        cannonMultiplierText.text = $"x{cannonMultiplier}";
+        slingshotMultiplierText.text = $"x{slingshotMultiplier}";
     }
 
     void SpawnProjectile()
@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Not enough score to buy Cannon.");
+            Debug.LogWarning("Not enough score to buy Kanon.");
         }
     }
 
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Not enough score to buy Slingshot.");
+            Debug.LogWarning("Not enough score to buy Lance-Kayou.");
         }
     }
 
