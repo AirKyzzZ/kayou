@@ -46,8 +46,9 @@ public class GameManager : MonoBehaviour
         UpdateMultipliersUI();
         UpdatePurchaseButtons();
 
-        // Hide the slingshot button initially
+        // Hide the slingshot button and its cost text initially
         slingshotButton.gameObject.SetActive(false);
+        slingshotCostText.gameObject.SetActive(false);
 
         clickButton.onClick.AddListener(OnClick);       // Action for clicking
         upgradeButton.onClick.AddListener(OnUpgrade);   // Action for upgrading
@@ -181,10 +182,11 @@ public class GameManager : MonoBehaviour
             StartCoroutine(AddScoreOverTime(5, 10 * cannonMultiplier));
             Debug.Log($"Cannon upgraded! New multiplier: {cannonMultiplier}");
 
-            // Show the slingshot button after the first cannon purchase
+            // Show the slingshot button and its cost text after the first cannon purchase
             if (!slingshotButton.gameObject.activeSelf)
             {
                 slingshotButton.gameObject.SetActive(true);
+                slingshotCostText.gameObject.SetActive(true);
             }
         }
         else
