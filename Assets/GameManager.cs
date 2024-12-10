@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public Text slingshotMultiplierText; // Displays the slingshot multiplier
     public Text cannonCostText;       // Displays the cost of the cannon
     public Text slingshotCostText;    // Displays the cost of the slingshot
+    public Text pointsPerClickText;   // Displays the points per click
 
     // Projectile Animation
     public Transform projectileParent; // Target position for the projectiles
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour
         UpdateScoreUI();
         UpdateUpgradeUI();
         UpdateMultipliersUI();
+        UpdatePointsPerClickUI();
         UpdatePurchaseButtons();
 
         // Hide the slingshot button and its cost text initially
@@ -99,6 +101,7 @@ public class GameManager : MonoBehaviour
         // Update the UI
         UpdateScoreUI();
         UpdateUpgradeUI();
+        UpdatePointsPerClickUI();
 
         Debug.Log($"Upgrade Successful! New Score: {score}, New PointsPerClick: {pointsPerClick}, New UpgradeCost: {upgradeCost}");
     }
@@ -124,6 +127,12 @@ public class GameManager : MonoBehaviour
         // Update the multipliers display
         cannonMultiplierText.text = $"x{cannonMultiplier}";
         slingshotMultiplierText.text = $"x{slingshotMultiplier}";
+    }
+
+    void UpdatePointsPerClickUI()
+    {
+        // Update the points per click display
+        pointsPerClickText.text = $"Points per Click: {pointsPerClick}";
     }
 
     void UpdatePurchaseButtons()
