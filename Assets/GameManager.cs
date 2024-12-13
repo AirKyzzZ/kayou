@@ -208,9 +208,8 @@ public class GameManager : MonoBehaviour
         kayouPortailInterstellaireCostText.text = $"Kayou Portail Interstellaire: {kayouPortailInterstellaireCost} points";
         kayouUniversParalleleCostText.text = $"Kayou Univers Parallèle: {kayouUniversParalleleCost} points";
     }
-}
 
-   void SpawnProjectile()
+    void SpawnProjectile()
     {
         // Create a projectile at the click button's position
         GameObject projectile = Instantiate(projectilePrefab, projectileParent);
