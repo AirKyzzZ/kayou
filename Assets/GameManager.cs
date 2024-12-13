@@ -184,30 +184,26 @@ public class GameManager : MonoBehaviour
         kayouCentraleEnergetiqueButton.interactable = score >= kayouCentraleEnergetiqueCost;
         kayouUsineProductionButton.interactable = score >= kayouUsineProductionCost;
         kayouVaisseauCollecteurButton.interactable = score >= kayouVaisseauCollecteurCost;
-        kayouStationOrbitaleButton.interactable = score >= kayouStationOrbitaleCost;
-        kayouTerraformeurButton.interactable
-        kayouTerraformeurButton.interactable = score >= kayouTerraformeurCost;
-        kayouPortailInterstellaireButton.interactable = score >= kayouPortailInterstellaireCost;
-        kayouUniversParalleleButton.interactable = score >= kayouUniversParalleleCost;
-        lanceKayouCostText.text = $"Lance Kayou: {lanceKayouCost} points";
-        kanonCostText.text = $"Kanon: {kanonCost} points";
-        pistoKayouCostText.text = $"Pisto Kayou: {pistoKayouCost} points";
-        kayouLaserCostText.text = $"Kayou Laser: {kayouLaserCost} points";
-        mineKayouCostText.text = $"Mine à Kayou: {mineKayouCost} points";
-        forgeKayouCostText.text = $"Forge à Kayou: {forgeKayouCost} points";
-        kayouArbaleteCostText.text = $"Kayou Arbalète: {kayouArbaleteCost} points";
-        bombeKayouCostText.text = $"Bombe Kayou: {bombeKayouCost} points";
-        kayouAsteroideCostText.text = $"Kayou Astéroïde: {kayouAsteroideCost} points";
-        kayouSupernovaCostText.text = $"Kayou Supernova: {kayouSupernovaCost} points";
-        kayouExtracteurCostText.text = $"Kayou Extracteur: {kayouExtracteurCost} points";
-        kayouRaffinerieCostText.text = $"Kayou Raffinerie: {kayouRaffinerieCost} points";
-        kayouCentraleEnergetiqueCostText.text = $"Kayou Centrale Énergétique: {kayouCentraleEnergetiqueCost} points";
-        kayouUsineProductionCostText.text = $"Kayou Usine de Production: {kayouUsineProductionCost} points";
-        kayouVaisseauCollecteurCostText.text = $"Kayou Vaisseau Collecteur: {kayouVaisseauCollecteurCost} points";
-        kayouStationOrbitaleCostText.text = $"Kayou Station Orbitale: {kayouStationOrbitaleCost} points";
-        kayouTerraformeurCostText.text = $"Kayou Terraformeur: {kayouTerraformeurCost} points";
-        kayouPortailInterstellaireCostText.text = $"Kayou Portail Interstellaire: {kayouPortailInterstellaireCost} points";
-        kayouUniversParalleleCostText.text = $"Kayou Univers Parallèle: {kayouUniversParalleleCost} points";
+        kayouStationOrbitaleButton.interactable = score >= kayouStationOrbitaleCost; kayouTerraformeurButton.interactable = score >= kayouTerraformeurCost; kayouPortailInterstellaireButton.interactable = score >= kayouPortailInterstellaireCost; kayouUniversParalleleButton.interactable = score >= kayouUniversParalleleCost;
+         lanceKayouCostText.text = $"Lance Kayou: {lanceKayouCost} points";
+    kanonCostText.text = $"Kanon: {kanonCost} points";
+    pistoKayouCostText.text = $"Pisto Kayou: {pistoKayouCost} points";
+    kayouLaserCostText.text = $"Kayou Laser: {kayouLaserCost} points";
+    mineKayouCostText.text = $"Mine à Kayou: {mineKayouCost} points";
+    forgeKayouCostText.text = $"Forge à Kayou: {forgeKayouCost} points";
+    kayouArbaleteCostText.text = $"Kayou Arbalète: {kayouArbaleteCost} points";
+    bombeKayouCostText.text = $"Bombe Kayou: {bombeKayouCost} points";
+    kayouAsteroideCostText.text = $"Kayou Astéroïde: {kayouAsteroideCost} points";
+    kayouSupernovaCostText.text = $"Kayou Supernova: {kayouSupernovaCost} points";
+    kayouExtracteurCostText.text = $"Kayou Extracteur: {kayouExtracteurCost} points";
+    kayouRaffinerieCostText.text = $"Kayou Raffinerie: {kayouRaffinerieCost} points";
+    kayouCentraleEnergetiqueCostText.text = $"Kayou Centrale Énergétique: {kayouCentraleEnergetiqueCost} points";
+    kayouUsineProductionCostText.text = $"Kayou Usine de Production: {kayouUsineProductionCost} points";
+    kayouVaisseauCollecteurCostText.text = $"Kayou Vaisseau Collecteur: {kayouVaisseauCollecteurCost} points";
+    kayouStationOrbitaleCostText.text = $"Kayou Station Orbitale: {kayouStationOrbitaleCost} points";
+    kayouTerraformeurCostText.text = $"Kayou Terraformeur: {kayouTerraformeurCost} points";
+    kayouPortailInterstellaireCostText.text = $"Kayou Portail Interstellaire: {kayouPortailInterstellaireCost} points";
+    kayouUniversParalleleCostText.text = $"Kayou Univers Parallèle: {kayouUniversParalleleCost} points";
     }
 }
 
