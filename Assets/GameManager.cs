@@ -88,7 +88,6 @@ public class GameManager : MonoBehaviour
         UpdateUpgradeUI();
         UpdatePointsPerClickUI();
         UpdatePurchaseButtons();
-
         clickButton.onClick.AddListener(OnClick); // Action for clicking
         upgradeButton.onClick.AddListener(OnUpgrade); // Action for upgrading
 
@@ -184,35 +183,38 @@ public class GameManager : MonoBehaviour
         kayouCentraleEnergetiqueButton.interactable = score >= kayouCentraleEnergetiqueCost;
         kayouUsineProductionButton.interactable = score >= kayouUsineProductionCost;
         kayouVaisseauCollecteurButton.interactable = score >= kayouVaisseauCollecteurCost;
-        kayouStationOrbitaleButton.interactable = score >= kayouStationOrbitaleCost; kayouTerraformeurButton.interactable = score >= kayouTerraformeurCost; kayouPortailInterstellaireButton.interactable = score >= kayouPortailInterstellaireCost; kayouUniversParalleleButton.interactable = score >= kayouUniversParalleleCost;
-         lanceKayouCostText.text = $"Lance Kayou: {lanceKayouCost} points";
-    kanonCostText.text = $"Kanon: {kanonCost} points";
-    pistoKayouCostText.text = $"Pisto Kayou: {pistoKayouCost} points";
-    kayouLaserCostText.text = $"Kayou Laser: {kayouLaserCost} points";
-    mineKayouCostText.text = $"Mine à Kayou: {mineKayouCost} points";
-    forgeKayouCostText.text = $"Forge à Kayou: {forgeKayouCost} points";
-    kayouArbaleteCostText.text = $"Kayou Arbalète: {kayouArbaleteCost} points";
-    bombeKayouCostText.text = $"Bombe Kayou: {bombeKayouCost} points";
-    kayouAsteroideCostText.text = $"Kayou Astéroïde: {kayouAsteroideCost} points";
-    kayouSupernovaCostText.text = $"Kayou Supernova: {kayouSupernovaCost} points";
-    kayouExtracteurCostText.text = $"Kayou Extracteur: {kayouExtracteurCost} points";
-    kayouRaffinerieCostText.text = $"Kayou Raffinerie: {kayouRaffinerieCost} points";
-    kayouCentraleEnergetiqueCostText.text = $"Kayou Centrale Énergétique: {kayouCentraleEnergetiqueCost} points";
-    kayouUsineProductionCostText.text = $"Kayou Usine de Production: {kayouUsineProductionCost} points";
-    kayouVaisseauCollecteurCostText.text = $"Kayou Vaisseau Collecteur: {kayouVaisseauCollecteurCost} points";
-    kayouStationOrbitaleCostText.text = $"Kayou Station Orbitale: {kayouStationOrbitaleCost} points";
-    kayouTerraformeurCostText.text = $"Kayou Terraformeur: {kayouTerraformeurCost} points";
-    kayouPortailInterstellaireCostText.text = $"Kayou Portail Interstellaire: {kayouPortailInterstellaireCost} points";
-    kayouUniversParalleleCostText.text = $"Kayou Univers Parallèle: {kayouUniversParalleleCost} points";
+        kayouStationOrbitaleButton.interactable = score >= kayouStationOrbitaleCost;
+        kayouTerraformeurButton.interactable = score >= kayouTerraformeurCost;
+        kayouPortailInterstellaireButton.interactable = score >= kayouPortailInterstellaireCost;
+        kayouUniversParalleleButton.interactable = score >= kayouUniversParalleleCost;
+
+        lanceKayouCostText.text = $"Lance Kayou: {lanceKayouCost} points";
+        kanonCostText.text = $"Kanon: {kanonCost} points";
+        pistoKayouCostText.text = $"Pisto Kayou: {pistoKayouCost} points";
+        kayouLaserCostText.text = $"Kayou Laser: {kayouLaserCost} points";
+        mineKayouCostText.text = $"Mine à Kayou: {mineKayouCost} points";
+        forgeKayouCostText.text = $"Forge à Kayou: {forgeKayouCost} points";
+        kayouArbaleteCostText.text = $"Kayou Arbalète: {kayouArbaleteCost} points";
+        bombeKayouCostText.text = $"Bombe Kayou: {bombeKayouCost} points";
+        kayouAsteroideCostText.text = $"Kayou Astéroïde: {kayouAsteroideCost} points";
+        kayouSupernovaCostText.text = $"Kayou Supernova: {kayouSupernovaCost} points";
+        kayouExtracteurCostText.text = $"Kayou Extracteur: {kayouExtracteurCost} points";
+        kayouRaffinerieCostText.text = $"Kayou Raffinerie: {kayouRaffinerieCost} points";
+        kayouCentraleEnergetiqueCostText.text = $"Kayou Centrale Énergétique: {kayouCentraleEnergetiqueCost} points";
+        kayouUsineProductionCostText.text = $"Kayou Usine de Production: {kayouUsineProductionCost} points";
+        kayouVaisseauCollecteurCostText.text = $"Kayou Vaisseau Collecteur: {kayouVaisseauCollecteurCost} points";
+        kayouStationOrbitaleCostText.text = $"Kayou Station Orbitale: {kayouStationOrbitaleCost} points";
+        kayouTerraformeurCostText.text = $"Kayou Terraformeur: {kayouTerraformeurCost} points";
+        kayouPortailInterstellaireCostText.text = $"Kayou Portail Interstellaire: {kayouPortailInterstellaireCost} points";
+        kayouUniversParalleleCostText.text = $"Kayou Univers Parallèle: {kayouUniversParalleleCost} points";
     }
 }
 
-    void SpawnProjectile()
+   void SpawnProjectile()
     {
         // Create a projectile at the click button's position
         GameObject projectile = Instantiate(projectilePrefab, projectileParent);
         projectile.transform.position = clickButton.transform.position;
-
         // Animate the projectile moving to its target
         StartCoroutine(MoveProjectile(projectile));
     }
@@ -223,14 +225,12 @@ public class GameManager : MonoBehaviour
         Vector3 endPos = projectileParent.position;
         float elapsedTime = 0f;
         float duration = 1.0f / projectileSpeed; // Adjust duration based on speed
-
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
             projectile.transform.position = Vector3.Lerp(startPos, endPos, elapsedTime / duration);
             yield return null;
         }
-
         // Destroy the projectile after it reaches its target
         Destroy(projectile);
     }
@@ -243,15 +243,12 @@ public class GameManager : MonoBehaviour
             cannonMultiplier++;
             UpdateScoreUI();
             UpdateMultipliersUI();
-
             // Increase the cannon cost by 1.75 times
             cannonCost = Mathf.RoundToInt(cannonCost * 1.75f);
             UpdatePurchaseButtons();
-
             // Start the coroutine to add score over time
             StartCoroutine(AddScoreOverTime(1, 1 * cannonMultiplier));
             Debug.Log($"Cannon upgraded! New multiplier: {cannonMultiplier}");
-
             // Show the slingshot button and its cost text after the first cannon purchase
             if (!slingshotButton.gameObject.activeSelf)
             {
@@ -273,11 +270,9 @@ public class GameManager : MonoBehaviour
             slingshotMultiplier++;
             UpdateScoreUI();
             UpdateMultipliersUI();
-
             // Increase the slingshot cost by 1.75 times
             slingshotCost = Mathf.RoundToInt(slingshotCost * 1.75f);
             UpdatePurchaseButtons();
-
             // Start the coroutine to add score over time
             StartCoroutine(AddScoreOverTime(3, 5 * slingshotMultiplier));
             Debug.Log($"Slingshot upgraded! New multiplier: {slingshotMultiplier}");
