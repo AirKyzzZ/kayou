@@ -70,6 +70,15 @@ public class GameManager : MonoBehaviour
         catapultButton.onClick.AddListener(OnCatapultButtonClick);
         trebuchetButton.onClick.AddListener(OnTrebuchetButtonClick);
     }
+    void SpawnProjectile()
+    {
+        // Create a projectile at the click button's position
+        GameObject projectile = Instantiate(projectilePrefab, projectileParent);
+        projectile.transform.position = clickButton.transform.position;
+
+        // Animate the projectile moving to its target
+        StartCoroutine(MoveProjectile(projectile));
+    }
 
     void OnClick()
     {
