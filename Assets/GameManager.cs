@@ -80,6 +80,25 @@ public class GameManager : MonoBehaviour
         StartCoroutine(MoveProjectile(projectile));
     }
 
+    IEnumerator MoveProjectile(GameObject projectile)
+    {
+        Vector3 startPos = projectile.transform.position;
+        Vector3 endPos = projectileParent.position;
+        float elapsedTime = 0f;
+        float duration = 1.0f / projectileSpeed; // Adjust duration based on speed
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            projectile.transform.position = Vector3.Lerp(startPos, endPos, elapsedTime / duration);
+            yield return null;
+        }
+
+        // Destroy the projectile after it reaches its target
+        Destroy(projectile);
+    }
+
+
     void OnClick()
     {
         score += pointsPerClick;
