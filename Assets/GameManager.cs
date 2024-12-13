@@ -253,7 +253,7 @@ public class GameManager : MonoBehaviour
             UpdatePurchaseButtons();
 
             // Start the coroutine to add score over time
-            StartCoroutine(AddScoreOverTime(5, 10 * cannonMultiplier));
+            StartCoroutine(AddScoreOverTime(1, 1 * cannonMultiplier));
             Debug.Log($"Cannon upgraded! New multiplier: {cannonMultiplier}");
 
             // Show the slingshot button and its cost text after the first cannon purchase
