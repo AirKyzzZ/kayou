@@ -60,6 +60,26 @@ public class GameManager : MonoBehaviour
     private int catapultMultiplier = 0;
     private int trebuchetMultiplier = 0;
 
+    string FormatScore(int score)
+{
+    if (score >= 1000000000)
+    {
+        return $"{score / 1000000000}B";
+    }
+    else if (score >= 1000000)
+    {
+        return $"{score / 1000000}M";
+    }
+    else if (score >= 1000)
+    {
+        return $"{score / 1000}K";
+    }
+    else
+    {
+        return score.ToString();
+    }
+}
+
     void Start()
     {
         score = 0;
@@ -140,10 +160,10 @@ public class GameManager : MonoBehaviour
     }
 
     void UpdateScoreUI()
-    {
-        scoreText.text = $"K$: {score}";
-        UpdatePurchaseButtons();
-    }
+{
+    scoreText.text = $"K$: {FormatScore(score)}";
+    UpdatePurchaseButtons();
+}
 
     void UpdateUpgradeUI()
     {
