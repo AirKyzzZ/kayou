@@ -226,7 +226,7 @@ public class GameManager : MonoBehaviour
 
     void ActivateUltimate()
     {
-        if (Input.GetKeyDown(KeyCode.R) && mana >= manaMax && !ultimateActive)
+        if mana >= manaMax && !ultimateActive)
         {
             ultimateActive = true;
             mana = 0;
