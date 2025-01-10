@@ -1,4 +1,3 @@
-// New upgrades: Catapult and Trebuchet added to the script.
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,10 +23,26 @@ public class GameManager : MonoBehaviour
     public Text trebuchetCostText;
     public Text pointsPerClickText;
 
+    // Mana Elements
+    public Slider manaSlider;
+    public Text manaText;
+    public Button ultimateButton;
+
     // Projectile Animation
     public Transform projectileParent;
     public GameObject projectilePrefab;
     public float projectileSpeed = 5.0f;
+
+    // Mana Variables
+    private float mana = 0;
+    private float manaMax = 100;
+    private float manaRegenRate = 1f;
+    private float manaDecayRate = 0.5f;
+    private bool ultimateActive = false;
+
+    // Ultimate Variables
+    private float ultimateDuration = 5f;
+    private float ultimateMultiplier = 3;
 
     // Buyable Items
     public int cannonCost = 50;
@@ -55,6 +70,7 @@ public class GameManager : MonoBehaviour
         UpdateMultipliersUI();
         UpdatePointsPerClickUI();
         UpdatePurchaseButtons();
+        UpdateManaUI();
 
         slingshotButton.gameObject.SetActive(false);
         slingshotCostText.gameObject.SetActive(false);
@@ -69,14 +85,15 @@ public class GameManager : MonoBehaviour
         slingshotButton.onClick.AddListener(OnSlingshotButtonClick);
         catapultButton.onClick.AddListener(OnCatapultButtonClick);
         trebuchetButton.onClick.AddListener(OnTrebuchetButtonClick);
+        ultimateButton.onClick.AddListener(ActivateUltimate);
+
+        StartCoroutine(DrainMana());
     }
+
     void SpawnProjectile()
     {
-        // Create a projectile at the click button's position
         GameObject projectile = Instantiate(projectilePrefab, projectileParent);
         projectile.transform.position = clickButton.transform.position;
-
-        // Animate the projectile moving to its target
         StartCoroutine(MoveProjectile(projectile));
     }
 
@@ -85,7 +102,7 @@ public class GameManager : MonoBehaviour
         Vector3 startPos = projectile.transform.position;
         Vector3 endPos = projectileParent.position;
         float elapsedTime = 0f;
-        float duration = 1.0f / projectileSpeed; // Adjust duration based on speed
+        float duration = 1.0f / projectileSpeed;
 
         while (elapsedTime < duration)
         {
@@ -94,16 +111,16 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        // Destroy the projectile after it reaches its target
         Destroy(projectile);
     }
-
 
     void OnClick()
     {
         score += pointsPerClick;
+        mana = Mathf.Clamp(mana + manaRegenRate, 0, manaMax);
         UpdateScoreUI();
         UpdateUpgradeUI();
+        UpdateManaUI();
         SpawnProjectile();
     }
 
@@ -123,7 +140,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateScoreUI()
     {
-        scoreText.text = $"Score: {score}";
+        scoreText.text = $"K$: {score}";
         UpdatePurchaseButtons();
     }
 
@@ -157,6 +174,52 @@ public class GameManager : MonoBehaviour
         slingshotCostText.text = $"Slingshot: {slingshotCost} points";
         catapultCostText.text = $"Catapult: {catapultCost} points";
         trebuchetCostText.text = $"Trebuchet: {trebuchetCost} points";
+    }
+
+    void UpdateManaUI()
+    {
+        manaText.text = $"Mana: {mana}/{manaMax}";
+        manaSlider.value = mana / manaMax;
+        ultimateButton.interactable = mana >= manaMax;
+    }
+
+    IEnumerator DrainMana()
+    {
+        while (true)
+        {
+            if (!ultimateActive)
+            {
+                mana = Mathf.Clamp(mana - manaDecayRate, 0, manaMax);
+                UpdateManaUI();
+            }
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+    void ActivateUltimate()
+    {
+        if (mana >= manaMax && !ultimateActive)
+        {
+            ultimateActive = true;
+            mana = 0;
+            UpdateManaUI();
+            StartCoroutine(UltimateEffect());
+        }
+    }
+
+    IEnumerator UltimateEffect()
+    {
+        float originalPointsPerClick = pointsPerClick;
+        pointsPerClick *= (int)ultimateMultiplier;
+
+        float originalProjectileSpeed = projectileSpeed;
+        projectileSpeed *= ultimateMultiplier;
+
+        yield return new WaitForSeconds(ultimateDuration);
+
+        pointsPerClick = (int)originalPointsPerClick;
+        projectileSpeed = originalProjectileSpeed;
+        ultimateActive = false;
     }
 
     void OnCannonButtonClick()
