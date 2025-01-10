@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         trebuchetButton.onClick.AddListener(OnTrebuchetButtonClick);
         ultimateButton.onClick.AddListener(ActivateUltimate);
 
-        Input.GetKeyDown(KeyCode.R) += ActivateUltimate;
+        Input.GetKeyDown(KeyCode.R) && ActivateUltimate();
         StartCoroutine(DrainMana());
     }
 
