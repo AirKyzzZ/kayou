@@ -226,15 +226,15 @@ public class GameManager : MonoBehaviour
     }
 
     void ActivateUltimate()
-{
-    if (Input.GetKeyDown(KeyCode.R) && mana >= manaMax && !ultimateActive)
     {
-        ultimateActive = true;
-        mana = 0;
-        UpdateManaUI();
-        StartCoroutine(UltimateEffect());
+        if (Input.GetKeyDown(KeyCode.R) && mana >= manaMax && !ultimateActive)
+        {
+            ultimateActive = true;
+            mana = 0;
+            UpdateManaUI();
+            StartCoroutine(UltimateEffect());
+        }
     }
-}
 
     IEnumerator UltimateEffect()
     {
