@@ -35,10 +35,13 @@ public class GameManager : MonoBehaviour
 
     // Mana Variables
     private float mana = 0;
-    private float manaMax = 100;
+    private int maxMana = 100;
     private float manaRegenRate = 1f;
     private float manaDecayRate = 0.5f;
     private bool ultimateActive = false;
+
+    private float decreaseRate = 1.0f
+     private bool isManaFull = false;
 
     // Ultimate Variables
     private float ultimateDuration = 5f;
@@ -64,6 +67,7 @@ public class GameManager : MonoBehaviour
         score = 0;
         pointsPerClick = 1;
         upgradeCost = 10;
+        currentMana = maxMana;
 
         UpdateScoreUI();
         UpdateUpgradeUI();
@@ -87,7 +91,8 @@ public class GameManager : MonoBehaviour
         trebuchetButton.onClick.AddListener(OnTrebuchetButtonClick);
         ultimateButton.onClick.AddListener(ActivateUltimate);
 
-        StartCoroutine(DrainMana());
+        //StartCoroutine(DrainMana());
+        StartCoroutine(ManaManagement());
     }
 
     void SpawnProjectile()
@@ -132,9 +137,12 @@ public class GameManager : MonoBehaviour
             pointsPerClick++;
             upgradeCost = Mathf.RoundToInt(upgradeCost * 1.75f);
 
+            // Increase depletion speed with upgrades
+            decreaseRate = Mathf.Max(0.1f, decreaseRate - 0.1f);
+
             UpdateScoreUI();
             UpdateUpgradeUI();
-            UpdatePointsPerClickUI();
+            UpdatePointsPerClickUI()
         }
     }
 
@@ -178,9 +186,35 @@ public class GameManager : MonoBehaviour
 
     void UpdateManaUI()
     {
-        manaText.text = $"Mana: {mana}/{manaMax}";
-        manaSlider.value = mana / manaMax;
-        ultimateButton.interactable = mana >= manaMax;
+        manaSlider.value = currentMana / maxMana;
+        manaText.text = $"Mana: {Mathf.CeilToInt(currentMana)} / {maxMana}";
+    }
+
+    IEnumerator ManaManagement()
+    {
+        while (true)
+        {
+            // If mana is full, wait a few seconds before starting depletion
+            if (currentMana >= maxMana && !isManaFull)
+            {
+                isManaFull = true;
+                yield return new WaitForSeconds(3.0f); // Wait 3 seconds at full mana
+            }
+
+            if (currentMana > 0)
+            {
+                currentMana -= 1;
+                isManaFull = false;
+                UpdateManaUI();
+            }
+            else
+            {
+                // Handle out-of-mana state (optional)
+                Debug.Log("Out of Mana!");
+            }
+
+            yield return new WaitForSeconds(decreaseRate);
+        }
     }
 
     IEnumerator DrainMana()
