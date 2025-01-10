@@ -108,6 +108,7 @@ public class GameManager : MonoBehaviour
         trebuchetButton.onClick.AddListener(OnTrebuchetButtonClick);
         ultimateButton.onClick.AddListener(ActivateUltimate);
 
+        Input.GetKeyDown(KeyCode.R) += ActivateUltimate;
         StartCoroutine(DrainMana());
     }
 
@@ -225,15 +226,15 @@ public class GameManager : MonoBehaviour
     }
 
     void ActivateUltimate()
+{
+    if (Input.GetKeyDown(KeyCode.R) && mana >= manaMax && !ultimateActive)
     {
-        if (mana >= manaMax && !ultimateActive)
-        {
-            ultimateActive = true;
-            mana = 0;
-            UpdateManaUI();
-            StartCoroutine(UltimateEffect());
-        }
+        ultimateActive = true;
+        mana = 0;
+        UpdateManaUI();
+        StartCoroutine(UltimateEffect());
     }
+}
 
     IEnumerator UltimateEffect()
     {
