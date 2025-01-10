@@ -70,9 +70,9 @@ public class GameManager : MonoBehaviour
     {
         return $"{score / 1000000}M";
     }
-    else if (score >= 1000)
+    else if (score >= 10000)
     {
-        return $"{score / 1000}K";
+        return $"{score / 10000}K";
     }
     else
     {
