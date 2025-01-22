@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    // UI Elements
+    // UI Elements test
     public Text scoreText;
     public Button clickButton;
     public Image clickButtonImage;
