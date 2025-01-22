@@ -1,16 +1,17 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     // UI Elements
     public Text scoreText;
     public Button clickButton;
     public Image clickButtonImage;
     public Sprite bronzeSprite;
-    public Sprite steelSprite; // Ajoutez cette ligne
-    public Sprite goldSprite; // Ajoutez cette ligne
+    public Sprite steelSprite;
+    public Sprite goldSprite;
     public Text spriteNameText;
     public Button upgradeButton;
     public Text upgradeCostText;
@@ -65,9 +66,9 @@ public class GameManager : MonoBehaviour
     private int catapultMultiplier = 0;
     private int trebuchetMultiplier = 0;
 
-    private int bronzeThreshold = 15000; // Définissez le score seuil pour le bronze
-    private int steelThreshold = 100000; // Définissez le score seuil pour l'acier
-    private int goldThreshold = 1000000; // Définissez le score seuil pour l'or
+    private int bronzeThreshold = 15000;
+    private int steelThreshold = 100000;
+    private int goldThreshold = 1000000;
 
     // Sprite Names
     private string[] spriteNames = { "Kayou Classique", "Kayou de Bronze", "Kayou en Acier", "Kayou d'Or" };
@@ -94,48 +95,49 @@ public class GameManager : MonoBehaviour
             return score.ToString();
         }
     }
+
     void Start()
-{
-    score = 0;
-    pointsPerClick = 1;
-    upgradeCost = 10;
+    {
+        score = 0;
+        pointsPerClick = 1;
+        upgradeCost = 10;
 
-    UpdateScoreUI();
-    UpdateUpgradeUI();
-    UpdateMultipliersUI();
-    UpdatePointsPerClickUI();
-    UpdatePurchaseButtons();
-    UpdateManaUI();
-    UpdateSpriteName();
-    UpdateCostTexts(); // Add this line
+        UpdateScoreUI();
+        UpdateUpgradeUI();
+        UpdateMultipliersUI();
+        UpdatePointsPerClickUI();
+        UpdatePurchaseButtons();
+        UpdateManaUI();
+        UpdateSpriteName();
+        UpdateCostTexts();
 
-    slingshotButton.gameObject.SetActive(false);
-    slingshotCostText.gameObject.SetActive(false);
-    catapultButton.gameObject.SetActive(false);
-    catapultCostText.gameObject.SetActive(false);
-    trebuchetButton.gameObject.SetActive(false);
-    trebuchetCostText.gameObject.SetActive(false);
+        slingshotButton.gameObject.SetActive(false);
+        slingshotCostText.gameObject.SetActive(false);
+        catapultButton.gameObject.SetActive(false);
+        catapultCostText.gameObject.SetActive(false);
+        trebuchetButton.gameObject.SetActive(false);
+        trebuchetCostText.gameObject.SetActive(false);
 
-    clickButton.onClick.AddListener(OnClick);
-    upgradeButton.onClick.AddListener(OnUpgrade);
-    cannonButton.onClick.AddListener(OnCannonButtonClick);
-    slingshotButton.onClick.AddListener(OnSlingshotButtonClick);
-    catapultButton.onClick.AddListener(OnCatapultButtonClick);
-    trebuchetButton.onClick.AddListener(OnTrebuchetButtonClick);
-    ultimateButton.onClick.AddListener(ActivateUltimate);
+        clickButton.onClick.AddListener(OnClick);
+        upgradeButton.onClick.AddListener(OnUpgrade);
+        cannonButton.onClick.AddListener(OnCannonButtonClick);
+        slingshotButton.onClick.AddListener(OnSlingshotButtonClick);
+        catapultButton.onClick.AddListener(OnCatapultButtonClick);
+        trebuchetButton.onClick.AddListener(OnTrebuchetButtonClick);
+        ultimateButton.onClick.AddListener(ActivateUltimate);
 
-    StartCoroutine(DrainMana());
-}
+        StartCoroutine(DrainMana());
+    }
 
-void UpdatePurchaseButtons()
-{
-    cannonButton.interactable = score >= cannonCost;
-    slingshotButton.interactable = score >= slingshotCost;
-    catapultButton.interactable = score >= catapultCost;
-    trebuchetButton.interactable = score >= trebuchetCost;
+    void UpdatePurchaseButtons()
+    {
+        cannonButton.interactable = score >= cannonCost;
+        slingshotButton.interactable = score >= slingshotCost;
+        catapultButton.interactable = score >= catapultCost;
+        trebuchetButton.interactable = score >= trebuchetCost;
 
-    UpdateCostTexts(); // Add this line
-}
+        UpdateCostTexts();
+    }
 
     void SpawnProjectile()
     {
@@ -172,6 +174,8 @@ void UpdatePurchaseButtons()
 
         UpdateSprite();
         UpdateSpriteName();
+
+        StartCoroutine(ClickAnimation());
     }
 
     void UpdateSprite()
@@ -223,13 +227,15 @@ void UpdatePurchaseButtons()
         upgradeCostText.text = $"Upgrade: {upgradeCost} points";
         upgradeButton.interactable = score >= upgradeCost;
     }
+
     void UpdateCostTexts()
-{
-    cannonCostText.text = $"Cannon: {cannonCost} points";
-    slingshotCostText.text = $"Slingshot: {slingshotCost} points";
-    catapultCostText.text = $"Catapult: {catapultCost} points";
-    trebuchetCostText.text = $"Trebuchet: {trebuchetCost} points";
-}
+    {
+        cannonCostText.text = $"Cannon: {cannonCost} points";
+        slingshotCostText.text = $"Slingshot: {slingshotCost} points";
+        catapultCostText.text = $"Catapult: {catapultCost} points";
+        trebuchetCostText.text = $"Trebuchet: {trebuchetCost} points";
+    }
+
     void UpdateMultipliersUI()
     {
         cannonMultiplierText.text = $"x{cannonMultiplier}";
@@ -241,19 +247,6 @@ void UpdatePurchaseButtons()
     void UpdatePointsPerClickUI()
     {
         pointsPerClickText.text = $"Points per Click: {pointsPerClick}";
-    }
-
-    void UpdatePurchaseButtons()
-    {
-        cannonButton.interactable = score >= cannonCost;
-        slingshotButton.interactable = score >= slingshotCost;
-        catapultButton.interactable = score >= catapultCost;
-        trebuchetButton.interactable = score >= trebuchetCost;
-
-        cannonCostText.text = $"Cannon: {cannonCost} points";
-        slingshotCostText.text = $"Slingshot: {slingshotCost} points";
-        catapultCostText.text = $"Catapult: {catapultCost} points";
-        trebuchetCostText.text = $"Trebuchet: {trebuchetCost} points";
     }
 
     void UpdateManaUI()
@@ -272,7 +265,7 @@ void UpdatePurchaseButtons()
                 if (mana >= manaMax)
                 {
                     manaFullDelayActive = true;
-                    yield return new WaitForSeconds(3f); // Wait for 3 seconds at full mana
+                    yield return new WaitForSeconds(3f);
                     manaFullDelayActive = false;
                 }
 
