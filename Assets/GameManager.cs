@@ -175,7 +175,6 @@ public class GameManager : MonoBehaviour
         UpdateSprite();
         UpdateSpriteName();
 
-        StartCoroutine(ClickAnimation());
     }
 
     void UpdateSprite()
