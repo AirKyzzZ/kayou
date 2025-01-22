@@ -95,36 +95,47 @@ public class GameManager : MonoBehaviour
         }
     }
     void Start()
-    {
-        score = 0;
-        pointsPerClick = 1;
-        upgradeCost = 10;
+{
+    score = 0;
+    pointsPerClick = 1;
+    upgradeCost = 10;
 
-        UpdateScoreUI();
-        UpdateUpgradeUI();
-        UpdateMultipliersUI();
-        UpdatePointsPerClickUI();
-        UpdatePurchaseButtons();
-        UpdateManaUI();
-        UpdateSpriteName();
+    UpdateScoreUI();
+    UpdateUpgradeUI();
+    UpdateMultipliersUI();
+    UpdatePointsPerClickUI();
+    UpdatePurchaseButtons();
+    UpdateManaUI();
+    UpdateSpriteName();
+    UpdateCostTexts(); // Add this line
 
-        slingshotButton.gameObject.SetActive(false);
-        slingshotCostText.gameObject.SetActive(false);
-        catapultButton.gameObject.SetActive(false);
-        catapultCostText.gameObject.SetActive(false);
-        trebuchetButton.gameObject.SetActive(false);
-        trebuchetCostText.gameObject.SetActive(false);
+    slingshotButton.gameObject.SetActive(false);
+    slingshotCostText.gameObject.SetActive(false);
+    catapultButton.gameObject.SetActive(false);
+    catapultCostText.gameObject.SetActive(false);
+    trebuchetButton.gameObject.SetActive(false);
+    trebuchetCostText.gameObject.SetActive(false);
 
-        clickButton.onClick.AddListener(OnClick);
-        upgradeButton.onClick.AddListener(OnUpgrade);
-        cannonButton.onClick.AddListener(OnCannonButtonClick);
-        slingshotButton.onClick.AddListener(OnSlingshotButtonClick);
-        catapultButton.onClick.AddListener(OnCatapultButtonClick);
-        trebuchetButton.onClick.AddListener(OnTrebuchetButtonClick);
-        ultimateButton.onClick.AddListener(ActivateUltimate);
+    clickButton.onClick.AddListener(OnClick);
+    upgradeButton.onClick.AddListener(OnUpgrade);
+    cannonButton.onClick.AddListener(OnCannonButtonClick);
+    slingshotButton.onClick.AddListener(OnSlingshotButtonClick);
+    catapultButton.onClick.AddListener(OnCatapultButtonClick);
+    trebuchetButton.onClick.AddListener(OnTrebuchetButtonClick);
+    ultimateButton.onClick.AddListener(ActivateUltimate);
 
-        StartCoroutine(DrainMana());
-    }
+    StartCoroutine(DrainMana());
+}
+
+void UpdatePurchaseButtons()
+{
+    cannonButton.interactable = score >= cannonCost;
+    slingshotButton.interactable = score >= slingshotCost;
+    catapultButton.interactable = score >= catapultCost;
+    trebuchetButton.interactable = score >= trebuchetCost;
+
+    UpdateCostTexts(); // Add this line
+}
 
     void SpawnProjectile()
     {
@@ -212,7 +223,13 @@ public class GameManager : MonoBehaviour
         upgradeCostText.text = $"Upgrade: {upgradeCost} points";
         upgradeButton.interactable = score >= upgradeCost;
     }
-
+    void UpdateCostTexts()
+{
+    cannonCostText.text = $"Cannon: {cannonCost} points";
+    slingshotCostText.text = $"Slingshot: {slingshotCost} points";
+    catapultCostText.text = $"Catapult: {catapultCost} points";
+    trebuchetCostText.text = $"Trebuchet: {trebuchetCost} points";
+}
     void UpdateMultipliersUI()
     {
         cannonMultiplierText.text = $"x{cannonMultiplier}";
