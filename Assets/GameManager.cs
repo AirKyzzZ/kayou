@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     public Button clickButton;
     public Image clickButtonImage;
-    public Sprite newClickButtonSprite;
+    public Sprite bronzeSprite;
+    public Sprite steelSprite; // Ajoutez cette ligne
+    public Sprite goldSprite; // Ajoutez cette ligne
     public Text spriteNameText;
     public Button upgradeButton;
     public Text upgradeCostText;
@@ -63,13 +65,15 @@ public class GameManager : MonoBehaviour
     private int catapultMultiplier = 0;
     private int trebuchetMultiplier = 0;
 
-    private int scoreThreshold = 100; // Définissez le score seuil
+    private int bronzeThreshold = 100; // Définissez le score seuil pour le bronze
+    private int steelThreshold = 500; // Définissez le score seuil pour l'acier
+    private int goldThreshold = 1000; // Définissez le score seuil pour l'or
 
     // Sprite Names
-    private string[] spriteNames = { "Kayou Classique", "Kayou de Bronze" };
+    private string[] spriteNames = { "Kayou Classique", "Kayou de Bronze", "Kayou en Acier", "Kayou d'Or" };
 
     // Current Sprite State
-    private bool spriteChanged = false; // Ajoutez cette ligne
+    private int currentSpriteIndex = 0;
 
     string FormatScore(int score)
     {
@@ -156,30 +160,32 @@ public class GameManager : MonoBehaviour
         UpdateManaUI();
         SpawnProjectile();
 
-        if (score >= scoreThreshold && !spriteChanged)
-        {
-            ChangeClickButtonVisual();
-            spriteChanged = true; // Mettez à jour l'état actuel du sprite
-        }
-
+        UpdateSprite();
         UpdateSpriteName();
     }
 
-    void ChangeClickButtonVisual()
+    void UpdateSprite()
     {
-        clickButtonImage.sprite = newClickButtonSprite;
+        if (score >= goldThreshold && currentSpriteIndex < 3)
+        {
+            clickButtonImage.sprite = goldSprite;
+            currentSpriteIndex = 3;
+        }
+        else if (score >= steelThreshold && currentSpriteIndex < 2)
+        {
+            clickButtonImage.sprite = steelSprite;
+            currentSpriteIndex = 2;
+        }
+        else if (score >= bronzeThreshold && currentSpriteIndex < 1)
+        {
+            clickButtonImage.sprite = bronzeSprite;
+            currentSpriteIndex = 1;
+        }
     }
 
     void UpdateSpriteName()
     {
-        if (!spriteChanged)
-        {
-            spriteNameText.text = spriteNames[0];
-        }
-        else
-        {
-            spriteNameText.text = spriteNames[1];
-        }
+        spriteNameText.text = spriteNames[currentSpriteIndex];
     }
 
     void OnUpgrade()
