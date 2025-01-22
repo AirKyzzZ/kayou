@@ -69,7 +69,8 @@ public class GameManager : MonoBehaviour
     private string[] spriteNames = { "Kayou Classique", "Kayou de Bronze" };
 
     // Current Sprite State
-    private int currentSpriteIndex = 0; // Ajoutez cette ligne
+    private int currentSpriteIndex = 0;
+    private int currentSpriteTextIndex = 0; // Ajoutez cette ligne
 
     string FormatScore(int score)
     {
@@ -159,7 +160,7 @@ public class GameManager : MonoBehaviour
         if (score >= scoreThreshold && currentSpriteIndex == 0)
         {
             ChangeClickButtonVisual();
-            currentSpriteIndex = 1; // Mettez à jour l'état actuel du sprite
+            currentSpriteIndex = 1;
         }
 
         UpdateSpriteName();
@@ -172,13 +173,15 @@ public class GameManager : MonoBehaviour
 
     void UpdateSpriteName()
     {
-        if (score < scoreThreshold)
+        if (score < scoreThreshold && currentSpriteTextIndex != 0)
         {
             spriteNameText.text = spriteNames[0];
+            currentSpriteTextIndex = 0;
         }
-        else
+        else if (score >= scoreThreshold && currentSpriteTextIndex != 1)
         {
             spriteNameText.text = spriteNames[1];
+            currentSpriteTextIndex = 1;
         }
     }
 
