@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     // Current Sprite State
     private int currentSpriteIndex = 0;
-    private int currentSpriteTextIndex = 0; // Ajoutez cette ligne
+    private int currentSpriteTextIndex = 0;
 
     string FormatScore(int score)
     {
