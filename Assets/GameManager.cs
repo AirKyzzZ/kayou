@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class GameManager : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class GameManager : MonoBehaviour
 {
-    // UI Elements test
+    // UI Elements
     public Text scoreText;
     public Button clickButton;
     public Image clickButtonImage;
