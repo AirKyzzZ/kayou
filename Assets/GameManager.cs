@@ -79,22 +79,21 @@ public class GameManager : MonoBehaviour
     {
         if (score >= 1000000000)
         {
-            return $"{score / 1000000000}B";
+            return $"{score / 1000000000f:0.0}B";
         }
         else if (score >= 1000000)
         {
-            return $"{score / 1000000}M";
+            return $"{score / 1000000f:0.0}M";
         }
-        else if (score >= 10000)
+        else if (score >= 1000)
         {
-            return $"{score / 10000}K";
+            return $"{score / 1000f:0.0}K";
         }
         else
         {
             return score.ToString();
         }
     }
-
     void Start()
     {
         score = 0;
