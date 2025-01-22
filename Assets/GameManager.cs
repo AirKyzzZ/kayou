@@ -52,9 +52,9 @@ public class GameManager : MonoBehaviour
 
     // Buyable Items
     public int cannonCost = 50;
-    public int slingshotCost = 100;
-    public int catapultCost = 500;
-    public int trebuchetCost = 1000;
+    public int slingshotCost = 1000;
+    public int catapultCost = 20000;
+    public int trebuchetCost = 100000;
 
     // Gameplay Variables
     private int score = 0;
@@ -65,9 +65,9 @@ public class GameManager : MonoBehaviour
     private int catapultMultiplier = 0;
     private int trebuchetMultiplier = 0;
 
-    private int bronzeThreshold = 100; // Définissez le score seuil pour le bronze
-    private int steelThreshold = 500; // Définissez le score seuil pour l'acier
-    private int goldThreshold = 1000; // Définissez le score seuil pour l'or
+    private int bronzeThreshold = 15000; // Définissez le score seuil pour le bronze
+    private int steelThreshold = 100000; // Définissez le score seuil pour l'acier
+    private int goldThreshold = 1000000; // Définissez le score seuil pour l'or
 
     // Sprite Names
     private string[] spriteNames = { "Kayou Classique", "Kayou de Bronze", "Kayou en Acier", "Kayou d'Or" };
