@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     // UI Elements
     public Text scoreText;
     public Button clickButton;
+    public Image clickButtonImage; // Ajoutez cette ligne
+    public Sprite newClickButtonSprite; // Ajoutez cette ligne
+    public Color newClickButtonColor = Color.red; // Ajoutez cette ligne
     public Button upgradeButton;
     public Text upgradeCostText;
     public Button cannonButton;
@@ -60,25 +63,27 @@ public class GameManager : MonoBehaviour
     private int catapultMultiplier = 0;
     private int trebuchetMultiplier = 0;
 
+    private int scoreThreshold = 100; // Définissez le score seuil
+
     string FormatScore(int score)
-{
-    if (score >= 1000000000)
     {
-        return $"{score / 1000000000}B";
+        if (score >= 1000000000)
+        {
+            return $"{score / 1000000000}B";
+        }
+        else if (score >= 1000000)
+        {
+            return $"{score / 1000000}M";
+        }
+        else if (score >= 10000)
+        {
+            return $"{score / 10000}K";
+        }
+        else
+        {
+            return score.ToString();
+        }
     }
-    else if (score >= 1000000)
-    {
-        return $"{score / 1000000}M";
-    }
-    else if (score >= 10000)
-    {
-        return $"{score / 10000}K";
-    }
-    else
-    {
-        return score.ToString();
-    }
-}
 
     void Start()
     {
@@ -143,6 +148,17 @@ public class GameManager : MonoBehaviour
         UpdateUpgradeUI();
         UpdateManaUI();
         SpawnProjectile();
+
+        if (score >= scoreThreshold)
+        {
+            ChangeClickButtonVisual();
+        }
+    }
+
+    void ChangeClickButtonVisual()
+    {
+        clickButtonImage.sprite = newClickButtonSprite;
+        clickButtonImage.color = newClickButtonColor;
     }
 
     void OnUpgrade()
@@ -160,10 +176,10 @@ public class GameManager : MonoBehaviour
     }
 
     void UpdateScoreUI()
-{
-    scoreText.text = $"K$: {FormatScore(score)}";
-    UpdatePurchaseButtons();
-}
+    {
+        scoreText.text = $"K$: {FormatScore(score)}";
+        UpdatePurchaseButtons();
+    }
 
     void UpdateUpgradeUI()
     {
