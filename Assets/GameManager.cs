@@ -7,9 +7,8 @@ public class GameManager : MonoBehaviour
     // UI Elements
     public Text scoreText;
     public Button clickButton;
-    public Image clickButtonImage; // Ajoutez cette ligne
-    public Sprite newClickButtonSprite; // Ajoutez cette ligne
-    public Color newClickButtonColor = Color.red; // Ajoutez cette ligne
+    public Image clickButtonImage; // Add this line
+    public Sprite newClickButtonSprite; // Add this line
     public Button upgradeButton;
     public Text upgradeCostText;
     public Button cannonButton;
@@ -158,7 +157,6 @@ public class GameManager : MonoBehaviour
     void ChangeClickButtonVisual()
     {
         clickButtonImage.sprite = newClickButtonSprite;
-        clickButtonImage.color = newClickButtonColor;
     }
 
     void OnUpgrade()
