@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public Button clickButton;
     public Image clickButtonImage;
     public Sprite newClickButtonSprite;
-    public Text spriteNameText; // Ajoutez cette ligne
+    public Text spriteNameText;
     public Button upgradeButton;
     public Text upgradeCostText;
     public Button cannonButton;
@@ -66,7 +66,10 @@ public class GameManager : MonoBehaviour
     private int scoreThreshold = 100; // Définissez le score seuil
 
     // Sprite Names
-    private string[] spriteNames = { "Kayou Classique", "Kayou de Bronze" }; // Ajoutez cette ligne
+    private string[] spriteNames = { "Kayou Classique", "Kayou de Bronze" };
+
+    // Current Sprite State
+    private int currentSpriteIndex = 0; // Ajoutez cette ligne
 
     string FormatScore(int score)
     {
@@ -100,7 +103,7 @@ public class GameManager : MonoBehaviour
         UpdatePointsPerClickUI();
         UpdatePurchaseButtons();
         UpdateManaUI();
-        UpdateSpriteName(); // Ajoutez cette ligne
+        UpdateSpriteName();
 
         slingshotButton.gameObject.SetActive(false);
         slingshotCostText.gameObject.SetActive(false);
@@ -153,12 +156,13 @@ public class GameManager : MonoBehaviour
         UpdateManaUI();
         SpawnProjectile();
 
-        if (score >= scoreThreshold)
+        if (score >= scoreThreshold && currentSpriteIndex == 0)
         {
             ChangeClickButtonVisual();
+            currentSpriteIndex = 1; // Mettez à jour l'état actuel du sprite
         }
 
-        UpdateSpriteName(); // Ajoutez cette ligne
+        UpdateSpriteName();
     }
 
     void ChangeClickButtonVisual()
