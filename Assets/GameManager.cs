@@ -168,52 +168,60 @@ public class GameManager : MonoBehaviour
         trigger.triggers.Add(entryPointerUp);
     }
 
-    void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
         // Start hover animation
         clickButton.transform.localScale = Vector3.one * 1.1f;
     }
 
-    void OnPointerExit(PointerEventData eventData)
+    public void OnPointerExit(PointerEventData eventData)
     {
         // Reset scale to original size
         clickButton.transform.localScale = Vector3.one;
     }
 
-    void OnPointerDown(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
         // Start click animation
         StartCoroutine(ClickAnimation());
     }
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        // Reset scale to original size
+        clickButton.transform.localScale = Vector3.one;
+    }
+
 
     IEnumerator ClickAnimation()
+{
+    Vector3 originalScale = clickButton.transform.localScale;
+    Vector3 clickedScale = originalScale * 0.9f;
+    Vector3 expandedScale = originalScale * 1.1f;
+    float clickDuration = 0.1f;
+    float expandDuration = 0.1f;
+
+    // Scale down
+    yield return ScaleOverTime(originalScale, clickedScale, clickDuration);
+
+    // Scale up (slightly larger than original)
+    yield return ScaleOverTime(clickedScale, expandedScale, expandDuration);
+
+    // Scale back to original
+    yield return ScaleOverTime(expandedScale, originalScale, expandDuration);
+}
+
+IEnumerator ScaleOverTime(Vector3 startScale, Vector3 endScale, float duration)
+{
+    float elapsedTime = 0f;
+    while (elapsedTime < duration)
     {
-        // Scale down
-        float targetScale = 0.9f;
-        float duration = 0.5f;
-        float elapsedTime = 0f;
-        Vector3 originalScale = clickButton.transform.localScale;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / duration;
-            clickButton.transform.localScale = Vector3.Lerp(originalScale, originalScale * targetScale, t);
-            yield return null;
-        }
-
-        // Scale up
-        targetScale = 1.1f;
-        elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / duration;
-            clickButton.transform.localScale = Vector3.Lerp(originalScale * targetScale, originalScale, t);
-            yield return null;
-        }
+        elapsedTime += Time.deltaTime;
+        float t = Mathf.Clamp01(elapsedTime / duration);
+        clickButton.transform.localScale = Vector3.Lerp(startScale, endScale, t);
+        yield return null;
     }
+    clickButton.transform.localScale = endScale;
+}
 
     void UpdatePurchaseButtons()
     {
