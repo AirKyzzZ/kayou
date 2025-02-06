@@ -163,49 +163,49 @@ public class GameManager : MonoBehaviour
         eventTrigger.triggers.Add(entry);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    void OnPointerEnter(PointerEventData eventData)
     {
         // Start hover animation
         clickButton.transform.localScale = Vector3.one * 1.1f;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    void OnPointerExit(PointerEventData eventData)
     {
         // Reset scale to original size
         clickButton.transform.localScale = Vector3.one;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    void OnPointerDown(PointerEventData eventData)
     {
         // Start click animation
         StartCoroutine(ClickAnimation());
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    void OnPointerUp(PointerEventData eventData)
     {
         // Reset scale to original size
         clickButton.transform.localScale = Vector3.one;
     }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    void OnPointerEnter(PointerEventData eventData)
     {
         // Start hover animation
         clickButton.transform.localScale = Vector3.one * 1.1f;
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    void OnPointerExit(PointerEventData eventData)
     {
         // Reset scale to original size
         clickButton.transform.localScale = Vector3.one;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    void OnPointerDown(PointerEventData eventData)
     {
         // Start click animation
         StartCoroutine(ClickAnimation());
     }
-    public void OnPointerUp(PointerEventData eventData)
+    void OnPointerUp(PointerEventData eventData)
     {
         // Reset scale to original size
         clickButton.transform.localScale = Vector3.one;
