@@ -142,30 +142,6 @@ public class GameManager : MonoBehaviour
         {
             trigger = clickButton.gameObject.AddComponent<EventTrigger>();
         }
-
-        // Add event trigger for hover enter
-        EventTrigger.Entry entryHoverEnter = new EventTrigger.Entry();
-        entryHoverEnter.eventID = EventTriggerType.PointerEnter;
-        entryHoverEnter.callback.AddListener((data) => { OnPointerEnter((PointerEventData)data); });
-        trigger.triggers.Add(entryHoverEnter);
-
-        // Add event trigger for hover exit
-        EventTrigger.Entry entryHoverExit = new EventTrigger.Entry();
-        entryHoverExit.eventID = EventTriggerType.PointerExit;
-        entryHoverExit.callback.AddListener((data) => { OnPointerExit((PointerEventData)data); });
-        trigger.triggers.Add(entryHoverExit);
-
-        // Add event trigger for pointer down
-        EventTrigger.Entry entryPointerDown = new EventTrigger.Entry();
-        entryPointerDown.eventID = EventTriggerType.PointerDown;
-        entryPointerDown.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
-        trigger.triggers.Add(entryPointerDown);
-
-        // Add event trigger for pointer up
-        EventTrigger.Entry entryPointerUp = new EventTrigger.Entry();
-        entryPointerUp.eventID = EventTriggerType.PointerUp;
-        entryPointerUp.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
-        trigger.triggers.Add(entryPointerUp);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
