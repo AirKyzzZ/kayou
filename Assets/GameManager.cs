@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
+     private EventTrigger eventTrigger;
     // UI Elements
     public Text scoreText;
     public Button clickButton;
@@ -142,6 +143,49 @@ public class GameManager : MonoBehaviour
         {
             trigger = clickButton.gameObject.AddComponent<EventTrigger>();
         }
+
+         eventTrigger = clickButton.GetComponent<EventTrigger>();
+        if (eventTrigger == null)
+        {
+            eventTrigger = clickButton.gameObject.AddComponent<EventTrigger>();
+        }
+
+        AddEventTrigger(EventTriggerType.PointerEnter, OnPointerEnter);
+        AddEventTrigger(EventTriggerType.PointerExit, OnPointerExit);
+        AddEventTrigger(EventTriggerType.PointerDown, OnPointerDown);
+        AddEventTrigger(EventTriggerType.PointerUp, OnPointerUp);
+    }
+
+    private void AddEventTrigger(EventTriggerType eventType, UnityAction<BaseEventData> callback)
+    {
+        EventTrigger.Entry entry = new EventTrigger.Entry { eventID = eventType };
+        entry.callback.AddListener(callback);
+        eventTrigger.triggers.Add(entry);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        // Start hover animation
+        clickButton.transform.localScale = Vector3.one * 1.1f;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        // Reset scale to original size
+        clickButton.transform.localScale = Vector3.one;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        // Start click animation
+        StartCoroutine(ClickAnimation());
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        // Reset scale to original size
+        clickButton.transform.localScale = Vector3.one;
+    }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
