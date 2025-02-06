@@ -96,6 +96,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    string FormatNumber(int number)
+    {
+        if (number >= 1000000)
+            return (number / 1000000D).ToString("0.##M");
+        if (number >= 1000)
+            return (number / 1000D).ToString("0.##k");
+
+        return number.ToString();
+    }
+
     void Start()
     {
         score = 0;
@@ -323,6 +333,12 @@ public class GameManager : MonoBehaviour
 
     void OnSlingshotButtonClick()
     {
+        if (slingshotButton == null || slingshotCostText == null || catapultButton == null || catapultCostText == null)
+        {
+            Debug.LogError("One or more UI elements are not set");
+            return;
+        }
+
         if (score >= slingshotCost)
         {
             score -= slingshotCost;
@@ -343,6 +359,12 @@ public class GameManager : MonoBehaviour
 
     void OnCatapultButtonClick()
     {
+        if (catapultButton == null || catapultCostText == null || trebuchetButton == null || trebuchetCostText == null)
+        {
+            Debug.LogError("One or more UI elements are not set");
+            return;
+        }
+
         if (score >= catapultCost)
         {
             score -= catapultCost;
