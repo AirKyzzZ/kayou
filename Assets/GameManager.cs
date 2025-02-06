@@ -137,6 +137,82 @@ public class GameManager : MonoBehaviour
         ultimateButton.onClick.AddListener(ActivateUltimate);
 
         StartCoroutine(DrainMana());
+        EventTrigger trigger = clickButton.GetComponent<EventTrigger>();
+        if (trigger == null)
+        {
+            trigger = clickButton.gameObject.AddComponent<EventTrigger>();
+        }
+
+        // Add event trigger for hover enter
+        EventTrigger.Entry entryHoverEnter = new EventTrigger.Entry();
+        entryHoverEnter.eventID = EventTriggerType.PointerEnter;
+        entryHoverEnter.callback.AddListener((data) => { OnPointerEnter((PointerEventData)data); });
+        trigger.triggers.Add(entryHoverEnter);
+
+        // Add event trigger for hover exit
+        EventTrigger.Entry entryHoverExit = new EventTrigger.Entry();
+        entryHoverExit.eventID = EventTriggerType.PointerExit;
+        entryHoverExit.callback.AddListener((data) => { OnPointerExit((PointerEventData)data); });
+        trigger.triggers.Add(entryHoverExit);
+
+        // Add event trigger for pointer down
+        EventTrigger.Entry entryPointerDown = new EventTrigger.Entry();
+        entryPointerDown.eventID = EventTriggerType.PointerDown;
+        entryPointerDown.callback.AddListener((data) => { OnPointerDown((PointerEventData)data); });
+        trigger.triggers.Add(entryPointerDown);
+
+        // Add event trigger for pointer up
+        EventTrigger.Entry entryPointerUp = new EventTrigger.Entry();
+        entryPointerUp.eventID = EventTriggerType.PointerUp;
+        entryPointerUp.callback.AddListener((data) => { OnPointerUp((PointerEventData)data); });
+        trigger.triggers.Add(entryPointerUp);
+    }
+
+    void OnPointerEnter(PointerEventData eventData)
+    {
+        // Start hover animation
+        clickButton.transform.localScale = Vector3.one * 1.1f;
+    }
+
+    void OnPointerExit(PointerEventData eventData)
+    {
+        // Reset scale to original size
+        clickButton.transform.localScale = Vector3.one;
+    }
+
+    void OnPointerDown(PointerEventData eventData)
+    {
+        // Start click animation
+        StartCoroutine(ClickAnimation());
+    }
+
+    IEnumerator ClickAnimation()
+    {
+        // Scale down
+        float targetScale = 0.9f;
+        float duration = 0.5f;
+        float elapsedTime = 0f;
+        Vector3 originalScale = clickButton.transform.localScale;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+            clickButton.transform.localScale = Vector3.Lerp(originalScale, originalScale * targetScale, t);
+            yield return null;
+        }
+
+        // Scale up
+        targetScale = 1.1f;
+        elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+            clickButton.transform.localScale = Vector3.Lerp(originalScale * targetScale, originalScale, t);
+            yield return null;
+        }
     }
 
     void UpdatePurchaseButtons()
