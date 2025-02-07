@@ -250,7 +250,7 @@ IEnumerator ScaleOverTime(Vector3 startScale, Vector3 endScale, float duration)
     }
 
     Vector3 originalScale = clickButton.transform.localScale;
-    Vector3 targetScale = originalScale * 0.9f; // Decrease to 90% of original size
+    Vector3 targetScale = originalScale * 0.5f; // Decrease to 90% of original size
 
     StartCoroutine(ScaleOverTime(originalScale, targetScale, 0.1f));
     StartCoroutine(ScaleOverTime(targetScale, originalScale, 0.1f));
