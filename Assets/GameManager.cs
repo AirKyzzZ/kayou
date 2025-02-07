@@ -283,16 +283,16 @@ void UpdateSprite()
 
     void UpdateUpgradeUI()
     {
-        upgradeCostText.text = $"Upgrade: {upgradeCost} points";
+        upgradeCostText.text = $"Upgrade: {FormatScore(upgradeCost)} points";
         upgradeButton.interactable = score >= upgradeCost;
     }
 
     void UpdateCostTexts()
     {
-        cannonCostText.text = $"Cannon: {cannonCost} points";
-        slingshotCostText.text = $"Slingshot: {slingshotCost} points";
-        catapultCostText.text = $"Catapult: {catapultCost} points";
-        trebuchetCostText.text = $"Trebuchet: {trebuchetCost} points";
+        cannonCostText.text = $"Cannon: {FormatScore(cannonCost)} points";
+        slingshotCostText.text = $"Slingshot: {FormatScore(slingshotCost)} points";
+        catapultCostText.text = $"Catapult: {FormatScore(catapultCost)} points";
+        trebuchetCostText.text = $"Trebuchet: {FormatScore(trebuchetCost)} points";
     }
 
     void UpdateMultipliersUI()
@@ -305,7 +305,7 @@ void UpdateSprite()
 
     void UpdatePointsPerClickUI()
     {
-        pointsPerClickText.text = $"Points per Click: {pointsPerClick}";
+        pointsPerClickText.text = $"Points per Click: {FormatScore(pointsPerClick)}";
     }
 
     void UpdateManaUI()
