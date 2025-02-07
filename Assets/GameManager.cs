@@ -212,22 +212,31 @@ public class GameManager : MonoBehaviour
     }
 
 
-    IEnumerator ClickAnimation()
+IEnumerator ClickAnimation()
 {
     Vector3 originalScale = clickButton.transform.localScale;
-    Vector3 clickedScale = originalScale * 0.9f;
-    Vector3 expandedScale = originalScale * 1.1f;
-    float clickDuration = 0.1f;
-    float expandDuration = 0.1f;
+    Vector3 targetScale = originalScale * 0.9f; // Decrease to 90% of original size
+    float animationDuration = 0.1f; // Animation duration in seconds
 
     // Scale down
-    yield return ScaleOverTime(originalScale, clickedScale, clickDuration);
-
-    // Scale up (slightly larger than original)
-    yield return ScaleOverTime(clickedScale, expandedScale, expandDuration);
+    float elapsedTime = 0f;
+    while (elapsedTime < animationDuration)
+    {
+        elapsedTime += Time.deltaTime;
+        float t = Mathf.Clamp01(elapsedTime / animationDuration);
+        clickButton.transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+        yield return null;
+    }
 
     // Scale back to original
-    yield return ScaleOverTime(expandedScale, originalScale, expandDuration);
+    elapsedTime = 0f;
+    while (elapsedTime < animationDuration)
+    {
+        elapsedTime += Time.deltaTime;
+        float t = Mathf.Clamp01(elapsedTime / animationDuration);
+        clickButton.transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
+        yield return null;
+    }
 }
 
 IEnumerator ScaleOverTime(Vector3 startScale, Vector3 endScale, float duration)
