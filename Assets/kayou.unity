@@ -925,6 +925,7 @@ GameObject:
   - component: {fileID: 364108031}
   - component: {fileID: 364108030}
   - component: {fileID: 364108029}
+  - component: {fileID: 364108032}
   m_Layer: 5
   m_Name: KAYOU
   m_TagString: Untagged
@@ -971,7 +972,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1034,6 +1035,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364108027}
   m_CullTransparentMesh: 1
+--- !u!95 &364108032
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364108027}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 441253b823fd2454586c71c2b5349957, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &381399926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,6 +1171,7 @@ RectTransform:
   - {fileID: 1231517223}
   - {fileID: 478527620}
   - {fileID: 1568377082}
+  - {fileID: 830803102}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1169,6 +1193,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2009727822}
   clickButton: {fileID: 364108029}
+  clickButtonImage: {fileID: 364108030}
+  bronzeSprite: {fileID: -8151065760093414229, guid: 773421f48d01844359b9c08f3c08c7e2, type: 3}
+  steelSprite: {fileID: 2533749663865203536, guid: ca4cc65abd55e49acb0bcccf0141bf3c, type: 3}
+  goldSprite: {fileID: 8331442937397303812, guid: 0674b35eda4aa4488b546a75b171bb0b, type: 3}
+  spriteNameText: {fileID: 830803100}
   upgradeButton: {fileID: 213771506}
   upgradeCostText: {fileID: 1770010065}
   cannonButton: {fileID: 43067717}
@@ -1191,9 +1220,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 364108027}
   projectileSpeed: 1
   cannonCost: 50
-  slingshotCost: 100
-  catapultCost: 500
-  trebuchetCost: 1000
+  slingshotCost: 1000
+  catapultCost: 20000
+  trebuchetCost: 100000
 --- !u!1 &392979623
 GameObject:
   m_ObjectHideFlags: 0
@@ -1433,7 +1462,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 583936528}
   m_HandleRect: {fileID: 583936527}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2234,6 +2263,85 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -283.452, y: 187.183}
   m_SizeDelta: {x: 374.905, y: 65.22}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &830803099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 830803102}
+  - component: {fileID: 830803101}
+  - component: {fileID: 830803100}
+  m_Layer: 5
+  m_Name: Sprite Name Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &830803100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830803099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 40
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Upgrade Name '
+--- !u!222 &830803101
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830803099}
+  m_CullTransparentMesh: 1
+--- !u!224 &830803102
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830803099}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 381399930}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -726.55, y: -422.06}
+  m_SizeDelta: {x: 321.702, y: 116.32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &840814484
 GameObject:
@@ -3467,7 +3575,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00014745405}
+  m_AnchoredPosition: {x: 0, y: 0.00007398399}
   m_SizeDelta: {x: 0, y: 183.7478}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1655415972
