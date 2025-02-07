@@ -171,6 +171,7 @@ IEnumerator ClickAnimation()
 IEnumerator ScaleOverTime(Vector3 startScale, Vector3 endScale, float duration)
 {
     float elapsedTime = 0f;
+
     while (elapsedTime < duration)
     {
         elapsedTime += Time.deltaTime;
@@ -178,6 +179,7 @@ IEnumerator ScaleOverTime(Vector3 startScale, Vector3 endScale, float duration)
         clickButton.transform.localScale = Vector3.Lerp(startScale, endScale, t);
         yield return null;
     }
+
     clickButton.transform.localScale = endScale;
 }
 
@@ -230,23 +232,29 @@ IEnumerator ScaleOverTime(Vector3 startScale, Vector3 endScale, float duration)
     }
 
     void UpdateSprite()
+{
+    if (score >= goldThreshold && currentSpriteIndex < 3)
     {
-        if (score >= goldThreshold && currentSpriteIndex < 3)
-        {
-            clickButtonImage.sprite = goldSprite;
-            currentSpriteIndex = 3;
-        }
-        else if (score >= steelThreshold && currentSpriteIndex < 2)
-        {
-            clickButtonImage.sprite = steelSprite;
-            currentSpriteIndex = 2;
-        }
-        else if (score >= bronzeThreshold && currentSpriteIndex < 1)
-        {
-            clickButtonImage.sprite = bronzeSprite;
-            currentSpriteIndex = 1;
-        }
+        clickButtonImage.sprite = goldSprite;
+        currentSpriteIndex = 3;
     }
+    else if (score >= steelThreshold && currentSpriteIndex < 2)
+    {
+        clickButtonImage.sprite = steelSprite;
+        currentSpriteIndex = 2;
+    }
+    else if (score >= bronzeThreshold && currentSpriteIndex < 1)
+    {
+        clickButtonImage.sprite = bronzeSprite;
+        currentSpriteIndex = 1;
+    }
+
+    Vector3 originalScale = clickButton.transform.localScale;
+    Vector3 targetScale = originalScale * 0.9f; // Decrease to 90% of original size
+
+    StartCoroutine(ScaleOverTime(originalScale, targetScale, 0.1f));
+    StartCoroutine(ScaleOverTime(targetScale, originalScale, 0.1f));
+}
 
     void UpdateSpriteName()
     {
