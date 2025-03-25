@@ -3,6 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+public AchievementManager achievementManager;
+
+private int[] scoreMilestones = { 1000, 5000, 10000, 50000, 100000 };
+private string[] milestoneTitles = { "First Steps", "Getting There", "On a Roll", "Halfway There", "Master Clicker" };
+private string[] milestoneDescriptions = { "Reach 1,000 points", "Reach 5,000 points", "Reach 10,000 points", "Reach 50,000 points", "Reach 100,000 points" };
+
 public class GameManager : MonoBehaviour
 {
      private EventTrigger eventTrigger;
@@ -109,6 +115,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        achievementManager = FindObjectOfType<AchievementManager>();
+        scoreGainText = GameObject.Find("ScoreGainText").GetComponent<Text>();
+        scoreGainText.gameObject.SetActive(false);
+
         score = 0;
         pointsPerClick = 1;
         upgradeCost = 10;
@@ -275,11 +285,26 @@ void UpdateSprite()
         }
     }
 
-    void UpdateScoreUI()
+void UpdateScoreUI()
+{
+    scoreText.text = $"K$: {FormatScore(score)}";
+    UpdatePurchaseButtons();
+    scoreGainText.gameObject.SetActive(false);
+    CheckAchievements();
+}
+
+void CheckAchievements()
+{
+    for (int i = 0; i < scoreMilestones.Length; i++)
     {
-        scoreText.text = $"K$: {FormatScore(score)}";
-        UpdatePurchaseButtons();
+        if (score >= scoreMilestones[i])
+        {
+            achievementManager.ShowAchievement(milestoneTitles[i], milestoneDescriptions[i]);
+            // Remove the milestone to prevent duplicate pop-ups
+            scoreMilestones[i] = int.MaxValue;
+        }
     }
+}
 
     void UpdateUpgradeUI()
     {
@@ -448,12 +473,19 @@ void UpdateSprite()
     }
 
     IEnumerator AddScoreOverTime(float interval, int points)
+{
+    while (true)
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(interval);
-            score += points;
-            UpdateScoreUI();
-        }
+        yield return new WaitForSeconds(interval);
+        score += points;
+        UpdateScoreUI();
+
+        // Update the score gain text
+        scoreGainText.text = $"+{points} points";
+        scoreGainText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+        scoreGainText.gameObject.SetActive(false);
     }
+}
 }
