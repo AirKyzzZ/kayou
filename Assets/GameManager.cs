@@ -305,10 +305,10 @@ void UpdateSprite()
 
     void UpdateCostTexts()
     {
-        cannonCostText.text = $"Cannon: {FormatScore(cannonCost)} points";
-        slingshotCostText.text = $"Slingshot: {FormatScore(slingshotCost)} points";
-        catapultCostText.text = $"Catapult: {FormatScore(catapultCost)} points";
-        trebuchetCostText.text = $"Trebuchet: {FormatScore(trebuchetCost)} points";
+        cannonCostText.text = $"Kanon: {FormatScore(cannonCost)} points";
+        slingshotCostText.text = $"Lance Kayou: {FormatScore(slingshotCost)} points";
+        catapultCostText.text = $"Katapult: {FormatScore(catapultCost)} points";
+        trebuchetCostText.text = $"Pistokayou: {FormatScore(trebuchetCost)} points";
     }
 
     void UpdateMultipliersUI()
