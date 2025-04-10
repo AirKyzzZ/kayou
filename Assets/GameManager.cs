@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     // UI Elements
     public Text scoreText;
     public Button clickButton;
+    public MenuManager menuManager; 
+
+    public Button openMenuButton; 
+
     public Image clickButtonImage;
     public Sprite bronzeSprite;
     public Sprite steelSprite;
@@ -128,7 +132,8 @@ public class GameManager : MonoBehaviour
         catapultCostText.gameObject.SetActive(false);
         trebuchetButton.gameObject.SetActive(false);
         trebuchetCostText.gameObject.SetActive(false);
-
+        
+        openMenuButton.onClick.AddListener(OpenMenu);
         clickButton.onClick.AddListener(OnClick);
         upgradeButton.onClick.AddListener(OnUpgrade);
         cannonButton.onClick.AddListener(OnCannonButtonClick);
@@ -167,6 +172,17 @@ IEnumerator ClickAnimation()
         yield return null;
     }
 }
+public int GetScore()
+{
+    return score;
+}
+
+
+void OpenMenu()
+{
+    openMenuButton.onClick.AddListener(() => menuManager.OpenMenu());
+}
+
 
 IEnumerator ScaleOverTime(Vector3 startScale, Vector3 endScale, float duration)
 {
