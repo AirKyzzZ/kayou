@@ -3,11 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public AchievementManager achievementManager;
 
-private int[] scoreMilestones = { 1000, 5000, 10000, 50000, 100000 };
-private string[] milestoneTitles = { "First Steps", "Getting There", "On a Roll", "Halfway There", "Master Clicker" };
-private string[] milestoneDescriptions = { "Reach 1,000 points", "Reach 5,000 points", "Reach 10,000 points", "Reach 50,000 points", "Reach 100,000 points" };
+
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     public Image clickButtonImage;
     public Sprite bronzeSprite;
+    public Text scoreGainText;
+
     public Sprite steelSprite;
     public Sprite goldSprite;
     public Text spriteNameText;
@@ -34,6 +33,8 @@ public class GameManager : MonoBehaviour
     public Text slingshotMultiplierText;
     public Text catapultMultiplierText;
     public Text trebuchetMultiplierText;
+
+    public AchievementManager achievementManager;
     public Text cannonCostText;
     public Text slingshotCostText;
     public Text catapultCostText;
@@ -116,6 +117,9 @@ public class GameManager : MonoBehaviour
 
         return number.ToString();
     }
+    private int[] scoreMilestones = { 1000, 5000, 10000, 50000, 100000 };
+    private string[] milestoneTitles = { "First Steps", "Getting There", "On a Roll", "Halfway There", "Master Clicker" };
+    private string[] milestoneDescriptions = { "Reach 1,000 points", "Reach 5,000 points", "Reach 10,000 points", "Reach 50,000 points", "Reach 100,000 points" };
 
     void Start()
     {

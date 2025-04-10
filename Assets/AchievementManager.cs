@@ -21,7 +21,7 @@ public class AchievementManager : MonoBehaviour
     private IEnumerator DisplayPopup(GameObject popup)
     {
         popup.SetActive(true);
-        yield return new WaitForSeconds(3f); // Display duration
+        yield return new WaitForSeconds(3f); 
         popup.SetActive(false);
         Destroy(popup);
         popupQueue.Dequeue();
